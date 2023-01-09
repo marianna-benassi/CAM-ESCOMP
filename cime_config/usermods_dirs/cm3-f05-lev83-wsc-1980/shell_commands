@@ -1,0 +1,8 @@
+./xmlchange CAM_CONFIG_OPTS='-phys cam_dev -chem waccm_sc_mam4 -nlev 83'
+./xmlchange SSTICE_MESH_FILENAME='$DIN_LOC_ROOT/share/meshes/fv0.47x0.63_141008_FIX102722_polemod_ESMFMesh.nc'
+./xmlchange SSTICE_DATA_FILENAME='$DIN_LOC_ROOT/atm/cam/sst/sst_HadOIBl_bc_0.47x0.63_1850_2017_c180507.nc'
+./xmlchange SSTICE_YEAR_ALIGN=1980
+./xmlchange SSTICE_YEAR_START=1980
+./xmlchange MOSART_SIM_YEAR=1980
+./xmlchange RUN_STARTDATE=1980-01-01
+./xmlchange CLM_FORCE_COLDSTART=on

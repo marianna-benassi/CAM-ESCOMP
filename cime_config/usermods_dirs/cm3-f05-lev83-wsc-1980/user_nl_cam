@@ -1,0 +1,31 @@
+ncdata = '$DIN_LOC_ROOT/atm/cam/inic/fv/cami_0000-01-01_0.47x0.63_L83_c230109.nc'
+effgw_beres_dp         = 0.90D0
+gw_qbo_hdepth_scaling  = 0.25D0
+qbo_use_forcing        = .false.
+frontgfc               = 2.7D-15
+taubgnd                = 2.5D-3
+effgw_rdg_beta = 0.75D0
+effgw_rdg_beta_max = 0.75D0
+tau_0_ubc=.true.
+ubc_specifier = 'Q->2.d-10vmr'
+gw_apply_tndmax          = .false.
+gw_limit_tau_without_eff = .true.
+gw_lndscl_sgh            = .false.
+gw_oro_south_fac         = 2.d0
+do_circulation_diags=.true.
+fv_nsplit=18
+fv_nspltrac=9
+fv_nspltvrm=9
+fv_filtcw = 1
+mfilt  = 0,1,4,40,120,240,365,73,365
+nhtfrq = 0, -24,-6,-3,-1,1,-24,-24
+fexcl1 = ' '  
+fincl1 = 'U','V','Q','T','PSL','OMEGA','PS','PRECC','PRECL','UTGWORO','VTGWORO',
+         'TS', 'TAUX','TAUY','TAUBLJX','TAUBLJY','TAUGWX','TAUGWY','FLNT','FLNS','FSNS','FSNT',
+         'LHFLX','SHFLX','TMQ','FLDS','FSDS','FSDSC','SWCF','LWCF','PRECSC','PRECSL',  'DTCOND','Z3', 'PSL'
+         'PBLH','ZMDT', 'ZMDT', 'STEND_CLUBB','RVMTEND_CLUBB','FREQZM' 
+fincl2 = 'TROP_T', 'TROP_P', 'Q', 'T','U850','V850','U200','V200','PRECT','PRECC','PBLH',
+         'OMEGA500','FLUT','Z500','T500','PS','PMID:I','TREFHTMN:M', 'TREFHTMX:X','TSMN:M', 'TSMX:X',
+         'ZMDT', 'ZMDT', 'STEND_CLUBB','RVMTEND_CLUBB',
+         'TREFHT','TS','CLDTOT','SWCF',
+         'LWCF','PSL','TMQ','LHFLX','SHFLX','CLDLOW'
