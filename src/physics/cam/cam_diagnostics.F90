@@ -516,25 +516,20 @@ contains
 
     call addfld ('TAUX',     horiz_only, 'A', 'N/m2','Zonal surface stress')
     call addfld ('TAUY',     horiz_only, 'A', 'N/m2','Meridional surface stress')
-
-   !GC commented this 
-   !call addfld ('TREFHT',   horiz_only, 'A', 'K','Reference height temperature')
+    call addfld ('TREFHT',   horiz_only, 'A', 'K','Reference height temperature')
     call addfld ('TREFHTMN', horiz_only, 'M','K','Minimum reference height temperature over output period')
     call addfld ('TREFHTMX', horiz_only, 'X','K','Maximum reference height temperature over output period')
     call addfld ('QREFHT',   horiz_only, 'A', 'kg/kg','Reference height humidity')
     call addfld ('U10',      horiz_only, 'A', 'm/s','10m wind speed')
     call addfld ('RHREFHT',  horiz_only, 'A', 'fraction','Reference height relative humidity')
-
-    !GC commented these
-    !call addfld ('LANDFRAC', horiz_only, 'A', 'fraction','Fraction of sfc area covered by land')
-    !call addfld ('ICEFRAC',  horiz_only, 'A', 'fraction','Fraction of sfc area covered by sea-ice')
-    !call addfld ('OCNFRAC',  horiz_only, 'A', 'fraction','Fraction of sfc area covered by ocean')
+    call addfld ('LANDFRAC', horiz_only, 'A', 'fraction','Fraction of sfc area covered by land')
+    call addfld ('ICEFRAC',  horiz_only, 'A', 'fraction','Fraction of sfc area covered by sea-ice')
+    call addfld ('OCNFRAC',  horiz_only, 'A', 'fraction','Fraction of sfc area covered by ocean')
 
     call addfld ('TREFMNAV', horiz_only, 'A', 'K','Average of TREFHT daily minimum')
     call addfld ('TREFMXAV', horiz_only, 'A', 'K','Average of TREFHT daily maximum')
 
-    !GC commented this
-    !call addfld ('TS',       horiz_only, 'A', 'K','Surface temperature (radiative)')
+    call addfld ('TS',       horiz_only, 'A', 'K','Surface temperature (radiative)')
     call addfld ('TSMN',     horiz_only, 'M','K','Minimum surface temperature over output period')
     call addfld ('TSMX',     horiz_only, 'X','K','Maximum surface temperature over output period')
     call addfld ('SNOWHLND', horiz_only, 'A', 'm','Water equivalent snow depth')
@@ -586,12 +581,6 @@ contains
     call addfld ('TPERT&IC',  horiz_only,   'I','K','Perturbation temperature (eddies in PBL)'            )
     call addfld ('QPERT&IC',  horiz_only,   'I','kg/kg','Perturbation specific humidity (eddies in PBL)'  )
 
-! GC
-    call addfld ('TS',       horiz_only, 'I', 'K','Surface temperature (radiative)')
-    call addfld ('LANDFRAC', horiz_only, 'I', 'fraction','Fraction of sfc area covered by land')
-    call addfld ('ICEFRAC',  horiz_only, 'I', 'fraction','Fraction of sfc area covered by sea-ice')
-    call addfld ('OCNFRAC',  horiz_only, 'I', 'fraction','Fraction of sfc area covered by ocean')
-    call addfld ('TREFHT',   horiz_only, 'I', 'K','Reference height temperature')
 
     ! CAM export state
     call addfld('a2x_BCPHIWET', horiz_only, 'A', 'kg/m2/s', 'wetdep of hydrophilic black carbon')
@@ -628,12 +617,11 @@ contains
       call add_default ('TAUX    ', 1, ' ')
       call add_default ('TAUY    ', 1, ' ')
 
-      !GC commented this
-      !call add_default ('TREFHT  ', 1, ' ')
-      !call add_default ('LANDFRAC', 1, ' ')
-      !call add_default ('OCNFRAC ', 1, ' ')
-      !call add_default ('ICEFRAC ', 1, ' ')
-      !call add_default ('TS      ', 1, ' ')
+      call add_default ('TREFHT  ', 1, ' ')
+      call add_default ('LANDFRAC', 1, ' ')
+      call add_default ('OCNFRAC ', 1, ' ')
+      call add_default ('ICEFRAC ', 1, ' ')
+      call add_default ('TS      ', 1, ' ')
       call add_default ('QREFHT  ', 1, ' ')
       call add_default ('U10     ', 1, ' ')
       call add_default ('TSMN    ', 1, ' ')
@@ -704,7 +692,8 @@ contains
       call add_default ('KVH&IC     ',0, 'I')
       call add_default ('KVM&IC     ',0, 'I')
 
-      !GC
+      !GC add these variables to the i.c. for spreads. DA radiances, RTTOV needs
+      !these.
       call add_default ('TS      ', 0, 'I')
       call add_default ('TREFHT  ', 0, 'I')
       call add_default ('LANDFRAC', 0, 'I')
