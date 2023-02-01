@@ -102,13 +102,6 @@ integer  ::      snow_sed_idx = 0
 integer  ::      prec_pcw_idx = 0
 integer  ::      snow_pcw_idx = 0
 
-!GC
-integer  ::      ts_idx      = 0
-integer  ::      trefht_idx  = 0
-integer  ::      landf_idx   = 0
-integer  ::      ocnf_idx    = 0
-integer  ::      icef_idx    = 0
-
 
 integer :: tpert_idx=-1, qpert_idx=-1, pblh_idx=-1
 
@@ -522,6 +515,7 @@ contains
     call addfld ('QREFHT',   horiz_only, 'A', 'kg/kg','Reference height humidity')
     call addfld ('U10',      horiz_only, 'A', 'm/s','10m wind speed')
     call addfld ('RHREFHT',  horiz_only, 'A', 'fraction','Reference height relative humidity')
+
     call addfld ('LANDFRAC', horiz_only, 'A', 'fraction','Fraction of sfc area covered by land')
     call addfld ('ICEFRAC',  horiz_only, 'A', 'fraction','Fraction of sfc area covered by sea-ice')
     call addfld ('OCNFRAC',  horiz_only, 'A', 'fraction','Fraction of sfc area covered by ocean')
@@ -581,7 +575,6 @@ contains
     call addfld ('TPERT&IC',  horiz_only,   'I','K','Perturbation temperature (eddies in PBL)'            )
     call addfld ('QPERT&IC',  horiz_only,   'I','kg/kg','Perturbation specific humidity (eddies in PBL)'  )
 
-
     ! CAM export state
     call addfld('a2x_BCPHIWET', horiz_only, 'A', 'kg/m2/s', 'wetdep of hydrophilic black carbon')
     call addfld('a2x_BCPHIDRY', horiz_only, 'A', 'kg/m2/s', 'drydep of hydrophilic black carbon')
@@ -616,14 +609,13 @@ contains
       call add_default ('QFLX    ', 1, ' ')
       call add_default ('TAUX    ', 1, ' ')
       call add_default ('TAUY    ', 1, ' ')
-
       call add_default ('TREFHT  ', 1, ' ')
       call add_default ('LANDFRAC', 1, ' ')
       call add_default ('OCNFRAC ', 1, ' ')
-      call add_default ('ICEFRAC ', 1, ' ')
-      call add_default ('TS      ', 1, ' ')
       call add_default ('QREFHT  ', 1, ' ')
       call add_default ('U10     ', 1, ' ')
+      call add_default ('ICEFRAC ', 1, ' ')
+      call add_default ('TS      ', 1, ' ')
       call add_default ('TSMN    ', 1, ' ')
       call add_default ('TSMX    ', 1, ' ')
       call add_default ('SNOWHLND', 1, ' ')
@@ -691,14 +683,14 @@ contains
       call add_default ('CUSH&IC    ',0, 'I')
       call add_default ('KVH&IC     ',0, 'I')
       call add_default ('KVM&IC     ',0, 'I')
-
-      !GC add these variables to the i.c. for spreads. DA radiances, RTTOV needs
+      !Add these variables to the i.c. for spreads. DA radiances, RTTOV needs
       !these.
       call add_default ('TS      ', 0, 'I')
       call add_default ('TREFHT  ', 0, 'I')
       call add_default ('LANDFRAC', 0, 'I')
       call add_default ('OCNFRAC ', 0, 'I')
       call add_default ('ICEFRAC ', 0, 'I')
+
     end if
 
     ! determine number of constituents for which convective tendencies must be computed
@@ -747,13 +739,6 @@ contains
     kvm_idx  = pbuf_get_index('kvm',  errcode=ierr)
     kvh_idx  = pbuf_get_index('kvh',  errcode=ierr)
     cush_idx = pbuf_get_index('cush', errcode=ierr)
-
-    !GC
-    ts_idx     = pbuf_get_index('TS', errcode=ierr)
-    trefht_idx = pbuf_get_index('TREFHT', errcode=ierr)
-    landf_idx  = pbuf_get_index('LANDFRAC', errcode=ierr)
-    ocnf_idx   = pbuf_get_index('OCNFRAC', errcode=ierr)
-    icef_idx   = pbuf_get_index('ICEFRAC', errcode=ierr)
 
     pblh_idx  = pbuf_get_index('pblh',  errcode=ierr)
     tpert_idx = pbuf_get_index('tpert', errcode=ierr)
@@ -2043,37 +2028,6 @@ contains
         call outfld('CUSH&IC   ',conv_var_2d, pcols,lchnk)
 
       end if
-
-
-      !GC
-      if (ts_idx > 0) then
-        call pbuf_get_field(pbuf, ts_idx, conv_var_2d ,(/1,itim_old/), (/pcols,1/))
-        call outfld('TS&IC   ',conv_var_2d, pcols,lchnk)
-
-      end if
-      if (trefht_idx > 0) then
-        call pbuf_get_field(pbuf, trefht_idx, conv_var_2d ,(/1,itim_old/), (/pcols,1/))
-        call outfld('TREFTHT&IC   ',conv_var_2d, pcols,lchnk)
-
-      end if
-      if (landf_idx > 0) then
-        call pbuf_get_field(pbuf, landf_idx, conv_var_2d ,(/1,itim_old/), (/pcols,1/))
-        call outfld('LANDFRAC&IC   ',conv_var_2d, pcols,lchnk)
-
-      end if
-      if (ocnf_idx > 0) then
-        call pbuf_get_field(pbuf, ocnf_idx, conv_var_2d ,(/1,itim_old/), (/pcols,1/))
-        call outfld('OCNFRAC&IC   ',conv_var_2d, pcols,lchnk)
-
-      end if
-      if (icef_idx > 0) then
-        call pbuf_get_field(pbuf, icef_idx, conv_var_2d ,(/1,itim_old/), (/pcols,1/))
-        call outfld('ICEFRAC&IC   ',conv_var_2d, pcols,lchnk)
-
-      end if
-
-
-
 
       if (tke_idx > 0) then
         call pbuf_get_field(pbuf, tke_idx, conv_var_3d)
