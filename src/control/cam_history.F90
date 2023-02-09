@@ -158,7 +158,9 @@ module cam_history
   character(len=1)  :: avgflag_pertape(ptapes) = (/(' ',idx=1,ptapes)/) ! per tape averaging flag
   character(len=16)  :: logname             ! user name
   character(len=16)  :: host                ! host name
-  character(len=8)   :: inithist = 'YEARLY' ! If set to '6-HOURLY, 'DAILY', 'MONTHLY' or
+ 
+  !GC
+  character(len=8)   :: inithist = 'YEARLY' ! If set to 'HHOURLY', 'HOURLY','6-HOURLY, 'DAILY', 'MONTHLY' or
   ! 'YEARLY' then write IC file
   logical            :: inithist_all = .false. ! Flag to indicate set of fields to be
                                           ! included on IC file
@@ -706,7 +708,10 @@ CONTAINS
       !
       ctemp = shr_string_toUpper(inithist)
       inithist = trim(ctemp)
-      if ( (inithist /= '6-HOURLY') .and. (inithist /= 'DAILY')  .and.        &
+      
+      !GC
+      if ( (inithist /= 'HHOURLY')  .and. (inithist /= 'HOURLY') .and.        &
+           (inithist /= '6-HOURLY') .and. (inithist /= 'DAILY')  .and.        &
            (inithist /= 'MONTHLY')  .and. (inithist /= 'YEARLY') .and.        &
            (inithist /= 'CAMIOP')   .and. (inithist /= 'ENDOFRUN')) then
         inithist = 'NONE'
@@ -767,7 +772,14 @@ CONTAINS
 
     ! Write out inithist info
     if (masterproc) then
-      if (inithist == '6-HOURLY' ) then
+
+      !GC
+      if (inithist == 'HHOURLY' ) then
+        write(iulog,*)'Initial conditions history files will be written half-hourly.'
+      else if (inithist == 'HOURLY' ) then
+        write(iulog,*)'Initial conditions history files will be written hourly.'
+      
+      else if (inithist == '6-HOURLY' ) then
         write(iulog,*)'Initial conditions history files will be written 6-hourly.'
       else if (inithist == 'DAILY' ) then
         write(iulog,*)'Initial conditions history files will be written daily.'
@@ -4913,7 +4925,14 @@ end subroutine print_active_fldlst
       nstep = get_nstep()
       call get_curr_date(yr, mon, day, ncsec)
 
-      if    (inithist == '6-HOURLY') then
+      !GC
+      if (inithist == 'HHOURLY') then
+        dtime  = get_step_size()
+        write_inithist = nstep /= 0 .and. mod( nstep,nint((0.5_r8*3600._r8)/dtime) ) == 0
+      elseif(inithist == 'HOURLY'   ) then
+        dtime  = get_step_size()
+        write_inithist = nstep /= 0 .and. mod( nstep,nint((1._r8*3600._r8)/dtime) ) == 0 
+      elseif (inithist == '6-HOURLY') then
         dtime  = get_step_size()
         write_inithist = nstep /= 0 .and. mod( nstep, nint((6._r8*3600._r8)/dtime) ) == 0
       elseif(inithist == 'DAILY'   ) then

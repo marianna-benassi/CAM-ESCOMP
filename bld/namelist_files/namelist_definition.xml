@@ -2092,10 +2092,10 @@ Default: 1
 </entry>
 
 <entry id="inithist" type="char*8"  category="history"
-       group="cam_history_nl" valid_values="NONE,6-HOURLY,DAILY,MONTHLY,YEARLY,CAMIOP,ENDOFRUN" >
+       group="cam_history_nl" valid_values="NONE,6-HOURLY,DAILY,MONTHLY,YEARLY,CAMIOP,ENDOFRUN,HHOURLY,HOURLY" >
 Frequency that initial files will be output: 6-hourly, daily, monthly,
-yearly, or never.  Valid values: 'NONE', '6-HOURLY', 'DAILY', 'MONTHLY',
-'YEARLY', 'CAMIOP', 'ENDOFRUN'.
+yearly, half-hourly, hourly or never.  Valid values: 'NONE', '6-HOURLY', 'DAILY', 'MONTHLY',
+'YEARLY', 'CAMIOP', 'ENDOFRUN','HHOURLY','HOURLY'.
 Default: 'YEARLY'
 </entry>
 
