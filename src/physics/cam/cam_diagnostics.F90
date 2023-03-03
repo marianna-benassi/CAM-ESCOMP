@@ -75,7 +75,6 @@ logical          :: history_budget                 ! output tendencies and state
                                                    ! liquid budgets.
 integer          :: history_budget_histfile_num    ! output history file number for budget fields
 logical          :: history_waccm                  ! outputs typically used for WACCM
-logical          :: history_sps                  ! outputs typically used for CMCC-SPS4
 
 ! Physics buffer indices
 
@@ -264,6 +263,7 @@ contains
     call addfld ('Z850',       horiz_only,  'A', 'm',         'Geopotential Z at 850 mbar pressure surface')
     call addfld ('Z700',       horiz_only,  'A', 'm',         'Geopotential Z at 700 mbar pressure surface')
     call addfld ('Z500',       horiz_only,  'A', 'm',         'Geopotential Z at 500 mbar pressure surface')
+    call addfld ('Z400',       horiz_only,  'A', 'm',         'Geopotential Z at 400 mbar pressure surface')
     call addfld ('Z300',       horiz_only,  'A', 'm',         'Geopotential Z at 300 mbar pressure surface')
     call addfld ('Z250',       horiz_only,  'A', 'm',         'Geopotential Z at 250 mbar pressure surface')
     call addfld ('Z200',       horiz_only,  'A', 'm',         'Geopotential Z at 200 mbar pressure surface')
@@ -385,79 +385,78 @@ contains
 
     call addfld ('ATMEINT',    horiz_only,  'A', 'J/m2','Vertically integrated total atmospheric energy ')
 
-    if (history_sps) then
-      call add_default ('T1000    '  , 1, ' ')
-      call add_default ('U1000    '  , 1, ' ')
-      call add_default ('V1000    '  , 1, ' ')
-      call add_default ('Z1000    '  , 1, ' ')
-      call add_default ('Q1000    '  , 1, ' ')
-      call add_default ('T925    '  , 1, ' ')
-      call add_default ('U925    '  , 1, ' ')
-      call add_default ('V925    '  , 1, ' ')
-      call add_default ('Z925    '  , 1, ' ')
-      call add_default ('Q925    '  , 1, ' ')
-      call add_default ('T850    '  , 1, ' ')
-      call add_default ('U850    '  , 1, ' ')
-      call add_default ('V850    '  , 1, ' ')
-      call add_default ('Z850    '  , 1, ' ')
-      call add_default ('Q850    '  , 1, ' ')
-      call add_default ('T700    '  , 1, ' ')
-      call add_default ('U700    '  , 1, ' ')
-      call add_default ('V700    '  , 1, ' ')
-      call add_default ('Z700    '  , 1, ' ')
-      call add_default ('Q700    '  , 1, ' ')
-      call add_default ('Q700test'  , 1, ' ')
-      call add_default ('T500    '  , 1, ' ')
-      call add_default ('U500    '  , 1, ' ')
-      call add_default ('V500    '  , 1, ' ')
-      call add_default ('Z500    '  , 1, ' ')
-      call add_default ('Q500    '  , 1, ' ')
-      call add_default ('T400    '  , 1, ' ')
-      call add_default ('U400    '  , 1, ' ')
-      call add_default ('V400    '  , 1, ' ')
-      call add_default ('Z400    '  , 1, ' ')
-      call add_default ('Q400    '  , 1, ' ')
-      call add_default ('T300    '  , 1, ' ')
-      call add_default ('U300    '  , 1, ' ')
-      call add_default ('V300    '  , 1, ' ')
-      call add_default ('Z300    '  , 1, ' ')
-      call add_default ('Q300    '  , 1, ' ')
-      call add_default ('T250    '  , 1, ' ')
-      call add_default ('U250    '  , 1, ' ')
-      call add_default ('V250    '  , 1, ' ')
-      call add_default ('Z250    '  , 1, ' ')
-      call add_default ('Q250    '  , 1, ' ')
-      call add_default ('T200    '  , 1, ' ')
-      call add_default ('U200    '  , 1, ' ')
-      call add_default ('V200    '  , 1, ' ')
-      call add_default ('Z200    '  , 1, ' ')
-      call add_default ('Q200    '  , 1, ' ')
-      call add_default ('T100    '  , 1, ' ')
-      call add_default ('U100    '  , 1, ' ')
-      call add_default ('V100    '  , 1, ' ')
-      call add_default ('Z100    '  , 1, ' ')
-      call add_default ('Q100    '  , 1, ' ')
-      call add_default ('T050    '  , 1, ' ')
-      call add_default ('U050    '  , 1, ' ')
-      call add_default ('V050    '  , 1, ' ')
-      call add_default ('Z050    '  , 1, ' ')
-      call add_default ('Q050    '  , 1, ' ')
-      call add_default ('T030    '  , 1, ' ')
-      call add_default ('U030    '  , 1, ' ')
-      call add_default ('V030    '  , 1, ' ')
-      call add_default ('Z030    '  , 1, ' ')
-      call add_default ('Q030    '  , 1, ' ')
-      call add_default ('T020    '  , 1, ' ')
-      call add_default ('U020    '  , 1, ' ')
-      call add_default ('V020    '  , 1, ' ')
-      call add_default ('Z020    '  , 1, ' ')
-      call add_default ('Q020    '  , 1, ' ')
-      call add_default ('T010    '  , 1, ' ')
-      call add_default ('U010    '  , 1, ' ')
-      call add_default ('V010    '  , 1, ' ')
-      call add_default ('Z010    '  , 1, ' ')
-      call add_default ('Q010    '  , 1, ' ')
-    endif
+!      id_tape=3
+!      call add_default ('T1000    '  , id_tape, ' ')
+!      call add_default ('U1000    '  , id_tape, ' ')
+!      call add_default ('V1000    '  , id_tape, ' ')
+!      call add_default ('Z1000    '  , id_tape, ' ')
+!      call add_default ('Q1000    '  , id_tape, ' ')
+!      call add_default ('T925    '  , id_tape, ' ')
+!      call add_default ('U925    '  , id_tape, ' ')
+!      call add_default ('V925    '  , id_tape, ' ')
+!      call add_default ('Z925    '  , id_tape, ' ')
+!      call add_default ('Q925    '  , id_tape, ' ')
+!      call add_default ('T850    '  , id_tape, ' ')
+!      call add_default ('U850    '  , id_tape, ' ')
+!      call add_default ('V850    '  , id_tape, ' ')
+!      call add_default ('Z850    '  , id_tape, ' ')
+!      call add_default ('Q850    '  , id_tape, ' ')
+!      call add_default ('T700    '  , id_tape, ' ')
+!      call add_default ('U700    '  , id_tape, ' ')
+!      call add_default ('V700    '  , id_tape, ' ')
+!      call add_default ('Z700    '  , id_tape, ' ')
+!      call add_default ('Q700    '  , id_tape, ' ')
+!      call add_default ('T500    '  , id_tape, ' ')
+!      call add_default ('U500    '  , id_tape, ' ')
+!      call add_default ('V500    '  , id_tape, ' ')
+!      call add_default ('Z500    '  , id_tape, ' ')
+!      call add_default ('Q500    '  , id_tape, ' ')
+!      call add_default ('T400    '  , id_tape, ' ')
+!      call add_default ('U400    '  , id_tape, ' ')
+!      call add_default ('V400    '  , id_tape, ' ')
+!      call add_default ('Z400    '  , id_tape, ' ')
+!      call add_default ('Q400    '  , id_tape, ' ')
+!      call add_default ('T300    '  , id_tape, ' ')
+!      call add_default ('U300    '  , id_tape, ' ')
+!      call add_default ('V300    '  , id_tape, ' ')
+!      call add_default ('Z300    '  , id_tape, ' ')
+!      call add_default ('Q300    '  , id_tape, ' ')
+!      call add_default ('T250    '  , id_tape, ' ')
+!      call add_default ('U250    '  , id_tape, ' ')
+!      call add_default ('V250    '  , id_tape, ' ')
+!      call add_default ('Z250    '  , id_tape, ' ')
+!      call add_default ('Q250    '  , id_tape, ' ')
+!      call add_default ('T200    '  , id_tape, ' ')
+!      call add_default ('U200    '  , id_tape, ' ')
+!      call add_default ('V200    '  , id_tape, ' ')
+!      call add_default ('Z200    '  , id_tape, ' ')
+!      call add_default ('Q200    '  , id_tape, ' ')
+!      call add_default ('T100    '  , id_tape, ' ')
+!      call add_default ('U100    '  , id_tape, ' ')
+!      call add_default ('V100    '  , id_tape, ' ')
+!      call add_default ('Z100    '  , id_tape, ' ')
+!      call add_default ('Q100    '  , id_tape, ' ')
+!      call add_default ('T050    '  , id_tape, ' ')
+!      call add_default ('U050    '  , id_tape, ' ')
+!      call add_default ('V050    '  , id_tape, ' ')
+!      call add_default ('Z050    '  , id_tape, ' ')
+!      call add_default ('Q050    '  , id_tape, ' ')
+!      call add_default ('T030    '  , id_tape, ' ')
+!      call add_default ('U030    '  , id_tape, ' ')
+!      call add_default ('V030    '  , id_tape, ' ')
+!      call add_default ('Z030    '  , id_tape, ' ')
+!      call add_default ('Q030    '  , id_tape, ' ')
+!      call add_default ('T020    '  , id_tape, ' ')
+!      call add_default ('U020    '  , id_tape, ' ')
+!      call add_default ('V020    '  , id_tape, ' ')
+!      call add_default ('Z020    '  , id_tape, ' ')
+!      call add_default ('Q020    '  , id_tape, ' ')
+!      call add_default ('T010    '  , id_tape, ' ')
+!      call add_default ('U010    '  , id_tape, ' ')
+!      call add_default ('V010    '  , id_tape, ' ')
+!      call add_default ('Z010    '  , id_tape, ' ')
+!      call add_default ('Q010    '  , id_tape, ' ')
+
     if (history_amwg) then
       call add_default ('PHIS    '  , 1, ' ')
       call add_default ('PS      '  , 1, ' ')
@@ -599,7 +598,6 @@ contains
     call addfld ('Q925',       horiz_only,  'A', 'kg/kg','Specific Humidity at 925 mbar pressure surface')
     call addfld ('Q850',       horiz_only,  'A', 'kg/kg','Specific Humidity at 850 mbar pressure surface')
     call addfld ('Q700',       horiz_only,  'A', 'kg/kg','Specific Humidity at 700 mbar pressure surface')
-    call addfld ('Q700test',       horiz_only,  'A', 'kg/kg','Specific Humidity at 700 mbar pressure surface')
     call addfld ('Q500',       horiz_only,  'A', 'kg/kg','Specific Humidity at 500 mbar pressure surface')
     call addfld ('Q400',       horiz_only,  'A', 'kg/kg','Specific Humidity at 400 mbar pressure surface')
     call addfld ('Q300',       horiz_only,  'A', 'kg/kg','Specific Humidity at 300 mbar pressure surface')
@@ -1326,25 +1324,10 @@ contains
 
     ! Output T,u,v fields on pressure surfaces
     !
-      if (hist_fld_active('T1000')) then
-      call vertinterp(ncol, pcols, pver, state%pmid, 100000._r8, state%t, p_surf,&
-          extrapolate='T', ps=state%ps, phis=state%phis)
-      call outfld('T1000    ', p_surf, pcols, lchnk )
-    end if
-      if (hist_fld_active('T925')) then
-      call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, state%t, p_surf,&
-          extrapolate='T', ps=state%ps, phis=state%phis)
-      call outfld('T925    ', p_surf, pcols, lchnk )
-    end if
     if (hist_fld_active('T850')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%t, p_surf, &
           extrapolate='T', ps=state%ps, phis=state%phis)
       call outfld('T850    ', p_surf, pcols, lchnk )
-    end if
-    if (hist_fld_active('T700')) then
-      call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%t, p_surf, &
-          extrapolate='T', ps=state%ps, phis=state%phis)
-      call outfld('T700    ', p_surf, pcols, lchnk )
     end if
     if (hist_fld_active('T500')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%t, p_surf, &
@@ -1512,9 +1495,8 @@ contains
 
     !! Boundary layer atmospheric stability, temperature, water vapor diagnostics
 
-    if (.not. history_sps) then
-       p_surf_t = -99.0_r8 ! Uninitialized to impossible value
-       if  (hist_fld_active('T1000')     .or. &
+    p_surf_t = -99.0_r8 ! Uninitialized to impossible value
+    if  (hist_fld_active('T1000')     .or. &
          hist_fld_active('T9251000')  .or. &
          hist_fld_active('TH9251000') .or. &
          hist_fld_active('T8501000')  .or. &
@@ -1522,71 +1504,70 @@ contains
          hist_fld_active('T7001000')  .or. &
          hist_fld_active('TH7001000')) then
          call vertinterp(ncol, pcols, pver, state%pmid, 100000._r8, state%t, p_surf_t(:,surf_100000))
-       end if
+    end if
 
-       if ( hist_fld_active('T925')       .or. &
+    if ( hist_fld_active('T925')       .or. &
            hist_fld_active('T9251000')   .or. &
            hist_fld_active('TH9251000')) then
            call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, state%t, p_surf_t(:,surf_092500))
-       end if
+    end if
 
 !!! at 1000 mb and 925 mb
-       if (hist_fld_active('T1000')) then
+    if (hist_fld_active('T1000')) then
          call outfld('T1000    ', p_surf_t(:,surf_100000), pcols, lchnk )
-       end if
+    end if
 
-       if (hist_fld_active('T925')) then
+    if (hist_fld_active('T925')) then
          call outfld('T925    ', p_surf_t(:,surf_092500), pcols, lchnk )
-       end if
+    end if
 
-       if (hist_fld_active('T9251000')) then
+    if (hist_fld_active('T9251000')) then
          p_surf = p_surf_t(:,surf_092500) - p_surf_t(:,surf_100000)
          call outfld('T9251000    ', p_surf, pcols, lchnk )
-       end if
+    end if
 
-       if (hist_fld_active('TH9251000')) then
+    if (hist_fld_active('TH9251000')) then
           p_surf = (p_surf_t(:,surf_092500)*(1000.0_r8/925.0_r8)**cappa) - (p_surf_t(:,surf_100000)*(1.0_r8)**cappa)
           call outfld('TH9251000    ', p_surf, pcols, lchnk )
-       end if
+    end if
 
-       if (hist_fld_active('T8501000')  .or. &
+    if (hist_fld_active('T8501000')  .or. &
           hist_fld_active('TH8501000')) then
          call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%t, p_surf_t(:,surf_085000))
-       end if
+    end if
 
 !!! at 1000 mb and 850 mb
-       if (hist_fld_active('T8501000')) then
+    if (hist_fld_active('T8501000')) then
          p_surf = p_surf_t(:,surf_085000)-p_surf_t(:,surf_100000)
          call outfld('T8501000    ', p_surf, pcols, lchnk )
-       end if
+    end if
 
-       if (hist_fld_active('TH8501000')) then
+    if (hist_fld_active('TH8501000')) then
           p_surf = (p_surf_t(:,surf_085000)*(1000.0_r8/850.0_r8)**cappa)-(p_surf_t(:,surf_100000)*(1.0_r8)**cappa)
          call outfld('TH8501000    ', p_surf, pcols, lchnk )
-       end if
+    end if
 
-       if (hist_fld_active('T7001000')  .or. &
+    if (hist_fld_active('T7001000')  .or. &
          hist_fld_active('TH7001000') .or. &
          hist_fld_active('T700')) then
          call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%t, p_surf_t(:,surf_070000))
-       end if
+    end if
 
 !!! at 700 mb
-       if (hist_fld_active('T700')) then
+    if (hist_fld_active('T700')) then
           call outfld('T700    ', p_surf_t(:,surf_070000), pcols, lchnk )
-       end if
+    end if
 
 !!! at 1000 mb and 700 mb
-       if (hist_fld_active('T7001000')) then
+    if (hist_fld_active('T7001000')) then
          p_surf = p_surf_t(:,surf_070000)-p_surf_t(:,surf_100000)
          call outfld('T7001000    ', p_surf, pcols, lchnk )
-       end if
+    end if
 
-       if (hist_fld_active('TH7001000')) then
+    if (hist_fld_active('TH7001000')) then
           p_surf = (p_surf_t(:,surf_070000)*(1000.0_r8/700.0_r8)**cappa)-(p_surf_t(:,surf_100000)*(1.0_r8)**cappa)
           call outfld('TH7001000    ', p_surf, pcols, lchnk )
-       end if
-    end if !if history_sps
+    end if
 
     if (hist_fld_active('T010')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 1000._r8, state%t, p_surf)
@@ -1760,14 +1741,6 @@ contains
     !
     ! Output q field on pressure surfaces
     !
-    if (hist_fld_active('Q1000')) then
-      call vertinterp(ncol, pcols, pver, state%pmid, 100000._r8, state%q(1,1,ixq), p_surf)
-      call outfld('Q1000    ', p_surf, pcols, lchnk )
-    end if
-    if (hist_fld_active('Q925')) then
-      call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, state%q(1,1,ixq), p_surf)
-      call outfld('Q925    ', p_surf, pcols, lchnk )
-    end if
     if (hist_fld_active('Q850')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%q(1,1,ixq), p_surf)
       call outfld('Q850    ', p_surf, pcols, lchnk )
@@ -1775,10 +1748,6 @@ contains
     if (hist_fld_active('Q700')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%q(1,1,ixq), p_surf)
       call outfld('Q700    ', p_surf, pcols, lchnk )
-    end if
-    if (hist_fld_active('Q700test')) then
-      call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%q(:,:,ixq), p_surf)
-      call outfld('Q700test    ', p_surf, pcols, lchnk )
     end if
     if (hist_fld_active('Q500')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%q(1,1,ixq), p_surf)
@@ -1845,80 +1814,78 @@ if (hist_fld_active('Q030')) then
 
     !! Boundary layer atmospheric stability, temperature, water vapor diagnostics
 
-    if (.not. history_sps) then
-       if ( hist_fld_active('THE9251000') .or. &
-            hist_fld_active('THE8501000') .or. &
-            hist_fld_active('THE7001000')) then
-          if (p_surf_t(1, surf_100000) < 0.0_r8) then
-              call vertinterp(ncol, pcols, pver, state%pmid, 100000._r8, state%t, p_surf_t(:, surf_100000))
-          end if
+    if ( hist_fld_active('THE9251000') .or. &
+         hist_fld_active('THE8501000') .or. &
+         hist_fld_active('THE7001000')) then
+       if (p_surf_t(1, surf_100000) < 0.0_r8) then
+           call vertinterp(ncol, pcols, pver, state%pmid, 100000._r8, state%t, p_surf_t(:, surf_100000))
        end if
+    end if
 
-      if ( hist_fld_active('TH9251000')  .or. &
+    if ( hist_fld_active('TH9251000')  .or. &
           hist_fld_active('THE9251000')) then
          if (p_surf_t(1, surf_092500) < 0.0_r8) then
              call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, state%t, p_surf_t(:, surf_092500))
          end if
-      end if
+    end if
 
-      if ( hist_fld_active('Q1000')      .or. &
+    if ( hist_fld_active('Q1000')      .or. &
            hist_fld_active('THE9251000') .or. &
            hist_fld_active('THE8501000') .or. &
            hist_fld_active('THE7001000')) then
            call vertinterp(ncol, pcols, pver, state%pmid, 100000._r8, state%q(1,1,ixq), p_surf_q1)
-      end if
+    end if
 
-      if (hist_fld_active('THE9251000') .or. &
+    if (hist_fld_active('THE9251000') .or. &
           hist_fld_active('Q925')) then
           call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, state%q(1,1,ixq), p_surf_q2)
-      end if
+    end if
 
       !!! at 1000 mb and 925 mb
-      if (hist_fld_active('Q1000')) then
+    if (hist_fld_active('Q1000')) then
           call outfld('Q1000    ', p_surf_q1, pcols, lchnk )
-      end if
+    end if
 
-      if (hist_fld_active('Q925')) then
+    if (hist_fld_active('Q925')) then
          call outfld('Q925    ', p_surf_q2, pcols, lchnk )
-      end if
+    end if
 
-      if (hist_fld_active('THE9251000')) then
+    if (hist_fld_active('THE9251000')) then
          p_surf = ((p_surf_t(:, surf_092500)*(1000.0_r8/925.0_r8)**cappa) *              &
                 exp((2500000.0_r8*p_surf_q2)/(1004.0_r8*p_surf_t(:, surf_092500)))) - &
                 (p_surf_t(:,surf_100000)*(1.0_r8)**cappa)*exp((2500000.0_r8*p_surf_q1)/(1004.0_r8*p_surf_t(:,surf_100000)))
          call outfld('THE9251000    ', p_surf, pcols, lchnk )
-      end if
+    end if
 
-      if (hist_fld_active('THE8501000')) then
+    if (hist_fld_active('THE8501000')) then
          if (p_surf_t(1, surf_085000) < 0.0_r8) then
             call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%t, p_surf_t(:, surf_085000))
          end if
-      end if
+    end if
 
       !!! at 1000 mb and 850 mb
-      if (hist_fld_active('THE8501000')) then
+    if (hist_fld_active('THE8501000')) then
           call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%q(1,1,ixq), p_surf_q2)
           p_surf = ((p_surf_t(:, surf_085000)*(1000.0_r8/850.0_r8)**cappa) *              &
                 exp((2500000.0_r8*p_surf_q2)/(1004.0_r8*p_surf_t(:, surf_085000)))) - &
                 (p_surf_t(:,surf_100000)*(1.0_r8)**cappa)*exp((2500000.0_r8*p_surf_q1)/(1004.0_r8*p_surf_t(:,surf_100000)))
           call outfld('THE8501000    ', p_surf, pcols, lchnk )
-      end if
+    end if
 
-      if (hist_fld_active('THE7001000')) then
+    if (hist_fld_active('THE7001000')) then
           if (p_surf_t(1, surf_070000) < 0.0_r8) then
            call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%t, p_surf_t(:, surf_070000))
           end if
-      end if
+    end if
 
       !!! at 1000 mb and 700 mb
-      if (hist_fld_active('THE7001000')) then
+    if (hist_fld_active('THE7001000')) then
          call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%q(1,1,ixq), p_surf_q2)
          p_surf = ((p_surf_t(:, surf_070000)*(1000.0_r8/700.0_r8)**cappa) *              &
                 exp((2500000.0_r8*p_surf_q2)/(1004.0_r8*p_surf_t(:, surf_070000)))) - &
                 (p_surf_t(:,surf_100000)*(1.0_r8)**cappa)*exp((2500000.0_r8*p_surf_q1)/(1004.0_r8*p_surf_t(:,surf_100000)))
          call outfld('THE7001000    ', p_surf, pcols, lchnk )
-      end if
-    end if !end if history_sps
+    end if
     return
   end subroutine diag_phys_writeout_moist
 

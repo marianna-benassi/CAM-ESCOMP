@@ -2688,7 +2688,6 @@
 
 <!-- Control output to history file(s) -->
 <history_amwg>                 .true.   </history_amwg>
-<history_sps>                 .false.   </history_sps>
 <history_vdiag>                .false.  </history_vdiag>
 <history_aerosol>              .false.  </history_aerosol>
 <history_aero_optics>          .false.  </history_aero_optics>

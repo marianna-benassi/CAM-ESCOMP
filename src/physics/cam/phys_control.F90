@@ -52,7 +52,6 @@ logical           :: use_subcol_microp    = .false.    ! if .true. then use sub-
 logical           :: atm_dep_flux         = .true.     ! true => deposition fluxes will be provided
                                                        ! to the coupler
 logical           :: history_amwg         = .true.     ! output the variables used by the AMWG diag package
-logical           :: history_sps         = .false.     ! output the variables used by the CMCC-SPS diag package
 logical           :: history_vdiag        = .false.    ! output the variables used by the AMWG variability diag package
 logical           :: history_aerosol      = .false.    ! output the MAM aerosol variables and tendencies
 logical           :: history_aero_optics  = .false.    ! output the aerosol
@@ -128,7 +127,7 @@ subroutine phys_ctl_readnl(nlfile)
    namelist /phys_ctl_nl/ cam_physpkg, use_simple_phys, cam_chempkg, waccmx_opt,  &
       deep_scheme, shallow_scheme, &
       eddy_scheme, microp_scheme,  macrop_scheme, radiation_scheme, srf_flux_avg, &
-      use_subcol_microp, atm_dep_flux, history_amwg, history_vdiag, history_aerosol, history_aero_optics, history_sps,&
+      use_subcol_microp, atm_dep_flux, history_amwg, history_vdiag, history_aerosol, history_aero_optics, &
       history_eddy, history_budget,  history_budget_histfile_num, history_waccm, &
       history_waccmx, history_chemistry, history_carma, history_clubb, history_dust, &
       history_cesm_forcing, history_scwaccm_forcing, history_chemspecies_srf, &
@@ -166,7 +165,6 @@ subroutine phys_ctl_readnl(nlfile)
    call mpi_bcast(srf_flux_avg,                1,                     mpi_integer,   masterprocid, mpicom, ierr)
    call mpi_bcast(use_subcol_microp,           1,                     mpi_logical,   masterprocid, mpicom, ierr)
    call mpi_bcast(atm_dep_flux,                1,                     mpi_logical,   masterprocid, mpicom, ierr)
-   call mpi_bcast(history_sps,                1,                     mpi_logical,   masterprocid, mpicom, ierr)
    call mpi_bcast(history_amwg,                1,                     mpi_logical,   masterprocid, mpicom, ierr)
    call mpi_bcast(history_vdiag,               1,                     mpi_logical,   masterprocid, mpicom, ierr)
    call mpi_bcast(history_eddy,                1,                     mpi_logical,   masterprocid, mpicom, ierr)
@@ -306,7 +304,7 @@ end function waccmx_is
 
 subroutine phys_getopts(deep_scheme_out, shallow_scheme_out, eddy_scheme_out, microp_scheme_out, &
                         radiation_scheme_out, use_subcol_microp_out, atm_dep_flux_out, &
-                         history_amwg_out, history_sps_out, history_vdiag_out, history_aerosol_out, history_aero_optics_out, history_eddy_out, &
+                         history_amwg_out, history_vdiag_out, history_aerosol_out, history_aero_optics_out, history_eddy_out, &
                         history_budget_out, history_budget_histfile_num_out, &
                         history_waccm_out, history_waccmx_out, history_chemistry_out, &
                         history_carma_out, history_clubb_out, history_dust_out, &
@@ -335,7 +333,6 @@ subroutine phys_getopts(deep_scheme_out, shallow_scheme_out, eddy_scheme_out, mi
    logical,           intent(out), optional :: use_spcam_out
    logical,           intent(out), optional :: atm_dep_flux_out
    logical,           intent(out), optional :: history_amwg_out
-   logical,           intent(out), optional :: history_sps_out
    logical,           intent(out), optional :: history_vdiag_out
    logical,           intent(out), optional :: history_eddy_out
    logical,           intent(out), optional :: history_aerosol_out
@@ -378,7 +375,6 @@ subroutine phys_getopts(deep_scheme_out, shallow_scheme_out, eddy_scheme_out, mi
    if ( present(history_aero_optics_out ) ) history_aero_optics_out  = history_aero_optics
    if ( present(history_budget_out      ) ) history_budget_out       = history_budget
    if ( present(history_amwg_out        ) ) history_amwg_out         = history_amwg
-   if ( present(history_sps_out        ) ) history_sps_out         = history_sps
    if ( present(history_vdiag_out       ) ) history_vdiag_out        = history_vdiag
    if ( present(history_eddy_out        ) ) history_eddy_out         = history_eddy
    if ( present(history_budget_histfile_num_out ) ) history_budget_histfile_num_out = history_budget_histfile_num
