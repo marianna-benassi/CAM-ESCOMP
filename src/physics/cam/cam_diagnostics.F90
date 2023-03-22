@@ -747,6 +747,13 @@ contains
       call add_default ('CUSH&IC    ',0, 'I')
       call add_default ('KVH&IC     ',0, 'I')
       call add_default ('KVM&IC     ',0, 'I')
+!Add these variables to the i.c. for spreads. DA radiances, RTTOV needs
+      !these.
+      call add_default ('TS      ', 0, 'I')
+      call add_default ('TREFHT  ', 0, 'I')
+      call add_default ('LANDFRAC', 0, 'I')
+      call add_default ('OCNFRAC ', 0, 'I')
+      call add_default ('ICEFRAC ', 0, 'I')
     end if
 
     ! determine number of constituents for which convective tendencies must be computed
